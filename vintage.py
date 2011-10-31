@@ -47,7 +47,7 @@ def update_status_line(view):
 
         repeat = (digits_to_number(g_input_state.prefix_repeat_digits)
             * digits_to_number(g_input_state.motion_repeat_digits))
-        if g_input_state.action_command != None or repeat != 1:
+        if g_input_state.action_command is not None or repeat != 1:
             cmd_desc = g_input_state.action_command
             if g_input_state.action_description:
                 cmd_desc = g_input_state.action_description
@@ -157,7 +157,7 @@ class InputStateTracker(sublime_plugin.EventListener):
             if operator == sublime.OP_NOT_EQUAL:
                 return operand != g_input_state.action_command
         elif key == "vi_has_action":
-            v = g_input_state.action_command != None
+            v = g_input_state.action_command is not None
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
         elif key == "vi_motion_mode":
@@ -174,7 +174,7 @@ class InputStateTracker(sublime_plugin.EventListener):
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
         elif key == "vi_can_enter_text_object":
-            v = (g_input_state.action_command != None) or view.has_non_empty_selection_region()
+            v = (g_input_state.action_command is not None) or view.has_non_empty_selection_region()
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
 
@@ -199,12 +199,12 @@ def eval_input(view):
     if len(g_input_state.motion_repeat_digits) > 0:
         cmd_args['motion_repeat'] = digits_to_number(g_input_state.motion_repeat_digits)
 
-    if g_input_state.register != None:
+    if g_input_state.register is not None:
         if not cmd_args['action_args']:
             cmd_args['action_args'] = {}
         cmd_args['action_args']['register'] = g_input_state.register
 
-    reset_motion_mode = (g_input_state.action_command != None)
+    reset_motion_mode = (g_input_state.action_command is not None)
 
     reset_input_state(view, reset_motion_mode)
 
@@ -243,7 +243,7 @@ class SetAction(sublime_plugin.TextCommand):
         g_input_state.action_command_args = action_args
         g_input_state.action_description = description
 
-        if motion_mode != None:
+        if motion_mode is not None:
             m = string_to_motion_mode(motion_mode)
             if m != -1:
                 if g_input_state.motion_mode == MOTION_MODE_LINE and m == MOTION_MODE_AUTO_LINE:
@@ -285,14 +285,14 @@ class SetMotion(sublime_plugin.TextCommand):
 
         # Pass the character, if any, onto the motion command.
         # This is required for 'f', 't', etc
-        if character != None:
+        if character is not None:
             motion_args['character'] = character
 
         g_input_state.motion_command = motion
         g_input_state.motion_command_args = motion_args
         g_input_state.motion_inclusive = inclusive
 
-        if mode != None:
+        if mode is not None:
             m = string_to_motion_mode(mode)
             if m != -1:
                 set_motion_mode(self.view, m)
@@ -388,7 +388,7 @@ def transform_selection_regions(view, f):
 
     for r in sel:
         nr = f(r)
-        if nr != None:
+        if nr is not None:
             new_sel.append(nr)
 
     sel.clear()
@@ -526,11 +526,11 @@ class ViEval(sublime_plugin.TextCommand):
             motion_command, motion_args, motion_mode,
             motion_inclusive, prefix_repeat = None, motion_repeat = None):
 
-        explicit_repeat = (prefix_repeat != None or motion_repeat != None)
+        explicit_repeat = (prefix_repeat is not None or motion_repeat is not None)
 
-        if prefix_repeat == None:
+        if prefix_repeat is None:
             prefix_repeat = 1
-        if motion_repeat == None:
+        if motion_repeat is None:
             motion_repeat = 1
 
         # Arguments are always passed as floats (thanks to JSON encoding),
