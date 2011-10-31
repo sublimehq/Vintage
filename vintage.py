@@ -889,6 +889,9 @@ class ReplaceCharacter(sublime_plugin.TextCommand):
         for s in new_sel:
             self.view.sel().add(s)
 
+class CenterOnCursor(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.show_at_center(self.view.sel()[0])
 
 class ViIndent(sublime_plugin.TextCommand):
     def run(self, edit):

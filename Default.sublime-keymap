@@ -35,6 +35,8 @@
 		]
 	},
 
+	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [] },
+
 	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["I"], "command": "enter_insert_mode", "args":
 		{"insert_command": "vi_move_to_first_non_white_space_character"},
