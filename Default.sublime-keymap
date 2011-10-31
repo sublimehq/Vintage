@@ -484,6 +484,19 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+ 	{ "keys": ["z", "."], "command": "set_motion", "args": {
+		"motion": "scroll_current_line_to_screen_center",
+ 		"motion_args": {"repeat": 1}},
+ 		"context": [{"key": "setting.command_mode"}]
+ 	},
+ 
+	{ "keys": ["z", "enter"], "command": "set_motion", "args": {
+		"motion": "scroll_current_line_to_screen_top",
+		"motion_args": {"repeat": 1}
+		},
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	// Motions to allow double press to mean entire line
 
 	{ "keys": ["c"], "command": "set_motion", "args": {

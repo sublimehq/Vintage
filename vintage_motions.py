@@ -264,3 +264,22 @@ class ViExpandToBrackets(sublime_plugin.TextCommand):
         self.view.run_command('expand_selection', {'to': 'brackets', 'brackets': character})
         if outer:
             self.view.run_command('expand_selection', {'to': 'brackets', 'brackets': character})
+
+class ScrollCurrentLineToScreenTop(sublime_plugin.TextCommand):
+    def run(self, edit, repeat, extend=False):
+        bos = self.view.visible_region().a
+        caret = self.view.line(self.view.sel()[0].begin()).a
+        offset = self.view.rowcol(caret)[0] - self.view.rowcol(bos)[0]
+
+        caret = advance_while_white_space_character(self.view, caret)
+        transform_selection(self.view, lambda pt: caret, extend)
+        self.view.run_command('scroll_lines', {'amount': -offset})
+
+class ScrollCurrentLineToScreenCenter(sublime_plugin.TextCommand):
+    def run(self, edit, repeat, extend=True):
+         line_nr = self.view.rowcol(self.view.sel()[0].a)[0] if \
+                                         int(repeat) == 1 else int(repeat) - 1
+         point = self.view.line(self.view.text_point(line_nr, 0)).a
+         point = advance_while_white_space_character(self.view, point)
+         transform_selection(self.view, lambda pt: point, extend)
+         self.view.run_command('show_at_center')
