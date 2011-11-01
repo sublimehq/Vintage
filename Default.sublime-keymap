@@ -250,6 +250,10 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+	{ "keys": ["g", "f"], "command": "vi_open_file_under_selection",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	{ "keys": [">"], "command": "set_action", "args": {"action": "vi_indent", "description": "Indent", "motion_mode": "auto_line"},
 		"context": [{"key": "setting.command_mode"}]
 	},
@@ -502,7 +506,7 @@
  		"motion_args": {"repeat": 1}},
  		"context": [{"key": "setting.command_mode"}]
  	},
- 
+
 	{ "keys": ["z", "enter"], "command": "set_motion", "args": {
 		"motion": "scroll_current_line_to_screen_top",
 		"motion_args": {"repeat": 1}
