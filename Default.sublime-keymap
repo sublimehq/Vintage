@@ -35,7 +35,7 @@
 		]
 	},
 
-	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [] },
+	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
 
 	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["I"], "command": "enter_insert_mode", "args":
