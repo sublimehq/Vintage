@@ -573,7 +573,10 @@
 		]
 	},
 
-	{ "keys": [">"], "command": "set_motion", "args": {"motion": null},
+	{ "keys": [">"], "command": "set_motion", "args": {
+		"motion": "expand_selection",
+		"motion_args": {"to": "line" },
+		"mode": "normal"},
 		"context":
 		[
 			{"key": "setting.command_mode"},
@@ -581,7 +584,10 @@
 		]
 	},
 
-	{ "keys": ["<"], "command": "set_motion", "args": {"motion": null},
+	{ "keys": ["<"], "command": "set_motion", "args": {
+		"motion": "expand_selection",
+		"motion_args": {"to": "line" },
+		"mode": "normal"},
 		"context":
 		[
 			{"key": "setting.command_mode"},
