@@ -28,6 +28,7 @@ class InputState:
     motion_command_args = None
     motion_mode = MOTION_MODE_NORMAL
     motion_inclusive = False
+    motion_clip_to_line = False
     register = None
 
 g_input_state = InputState()
@@ -82,6 +83,7 @@ def reset_input_state(view, reset_motion_mode = True):
     g_input_state.motion_command = None
     g_input_state.motion_command_args = None
     g_input_state.motion_inclusive = False
+    g_input_state.motion_clip_to_line = False
     g_input_state.register = None
     if reset_motion_mode:
         set_motion_mode(view, MOTION_MODE_NORMAL)
@@ -191,7 +193,8 @@ def eval_input(view):
         'motion_command': g_input_state.motion_command,
         'motion_args': g_input_state.motion_command_args,
         'motion_mode': g_input_state.motion_mode,
-        'motion_inclusive': g_input_state.motion_inclusive }
+        'motion_inclusive': g_input_state.motion_inclusive,
+        'motion_clip_to_line': g_input_state.motion_clip_to_line }
 
     if len(g_input_state.prefix_repeat_digits) > 0:
         cmd_args['prefix_repeat'] = digits_to_number(g_input_state.prefix_repeat_digits)
@@ -280,7 +283,9 @@ class SetMotion(sublime_plugin.TextCommand):
     def run_(self, args):
         return self.run(**args)
 
-    def run(self, motion, motion_args = {}, inclusive = False, character = None, mode = None):
+    def run(self, motion, motion_args = {}, inclusive = False,
+            clip_to_line = False, character = None, mode = None):
+
         global g_input_state
 
         # Pass the character, if any, onto the motion command.
@@ -291,6 +296,7 @@ class SetMotion(sublime_plugin.TextCommand):
         g_input_state.motion_command = motion
         g_input_state.motion_command_args = motion_args
         g_input_state.motion_inclusive = inclusive
+        g_input_state.motion_clip_to_line = clip_to_line
 
         if mode is not None:
             m = string_to_motion_mode(mode)
@@ -309,12 +315,15 @@ class SetActionMotion(sublime_plugin.TextCommand):
     def run_(self, args):
         return self.run(**args)
 
-    def run(self, motion, action, motion_args = {}, motion_inclusive = False, action_args = {}):
+    def run(self, motion, action, motion_args = {}, motion_clip_to_line = False,
+            motion_inclusive = False, action_args = {}):
+
         global g_input_state
 
         g_input_state.motion_command = motion
         g_input_state.motion_command_args = motion_args
         g_input_state.motion_inclusive = motion_inclusive
+        g_input_state.motion_clip_to_line = motion_clip_to_line
         g_input_state.action_command = action
         g_input_state.action_command_args = action_args
 
@@ -337,7 +346,6 @@ class SetMotionMode(sublime_plugin.TextCommand):
         else:
             print "invalid motion mode"
 
-# Sets the target register for the next command
 class SetRegister(sublime_plugin.TextCommand):
     def run_(self, args):
         return self.run(**args)
@@ -524,7 +532,8 @@ class ViEval(sublime_plugin.TextCommand):
 
     def run(self, edit, action_command, action_args,
             motion_command, motion_args, motion_mode,
-            motion_inclusive, prefix_repeat = None, motion_repeat = None):
+            motion_inclusive, motion_clip_to_line,
+            prefix_repeat = None, motion_repeat = None):
 
         explicit_repeat = (prefix_repeat is not None or motion_repeat is not None)
 
@@ -599,6 +608,16 @@ class ViEval(sublime_plugin.TextCommand):
                             lambda r: sublime.Region(r.b, r.b + 1) if r.empty() else r)
 
                     self.view.run_command(motion_command, motion_args)
+
+            # If the motion needs to be clipped to the line, remove any
+            # trailing newlines from the selection. For example, with the
+            # caret at the start of the last word on the line, 'dw' should
+            # delete the word, but not the newline, while 'w' should advance
+            # the caret to the first character of the next line.
+            if motion_mode != MOTION_MODE_LINE and action_command and motion_clip_to_line:
+                transform_selection_regions(self.view,
+                    lambda r: sublime.Region(r.a, r.b - 1)
+                        if (r.a < r.b and self.view.substr(r.b - 1) == '\n') else r)
 
             if motion_mode == MOTION_MODE_LINE:
                 expand_to_full_line(self.view)
