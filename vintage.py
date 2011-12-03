@@ -615,9 +615,7 @@ class ViEval(sublime_plugin.TextCommand):
             # delete the word, but not the newline, while 'w' should advance
             # the caret to the first character of the next line.
             if motion_mode != MOTION_MODE_LINE and action_command and motion_clip_to_line:
-                transform_selection_regions(self.view,
-                    lambda r: sublime.Region(r.a, r.b - 1)
-                        if (r.a < r.b and self.view.substr(r.b - 1) == '\n') else r)
+                transform_selection_regions(self.view, lambda r: self.view.split_by_newlines(r)[0])
 
             if motion_mode == MOTION_MODE_LINE:
                 expand_to_full_line(self.view)
