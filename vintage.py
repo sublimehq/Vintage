@@ -738,6 +738,13 @@ class ViDelete(sublime_plugin.TextCommand):
         set_register(self.view, '1', forward=False)
         self.view.run_command('left_delete')
 
+class ViLeftDelete(sublime_plugin.TextCommand):
+    def run(self, edit, register = '"'):
+        set_register(self.view, register, forward=False)
+        set_register(self.view, '1', forward=False)
+        self.view.run_command('left_delete')
+        clip_empty_selection_to_line_contents(self.view)
+
 class ViRightDelete(sublime_plugin.TextCommand):
     def run(self, edit, register = '"'):
         set_register(self.view, register, forward=True)
