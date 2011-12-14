@@ -399,7 +399,7 @@
 
 	{ "keys": ["_"], "command": "set_motion", "args": {
 		"motion": "vi_move_to_first_non_white_space_character",
-		"motion_args": {"extend": true },
+		"motion_args": {"extend": true, "repeat": 1 },
 		"clip_to_line": true },
 		"context": [{"key": "setting.command_mode"}]
 	},
