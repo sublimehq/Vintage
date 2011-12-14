@@ -50,7 +50,7 @@ class ViMoveToFirstNonWhiteSpaceCharacter(sublime_plugin.TextCommand):
     def run(self, edit, repeat = 1, extend = False):
         # According to Vim's help, _ moves count - 1 lines downward.
         for i in xrange(repeat - 1):
-            self.view.run_command('move', {'by': 'lines', 'forward': True, 'extend': True})
+            self.view.run_command('move', {'by': 'lines', 'forward': True, 'extend': extend})
             
         transform_selection(self.view, lambda pt: self.first_character(pt),
             extend=extend)
