@@ -232,7 +232,7 @@
 	{ "keys": ["c"], "command": "set_action", "args": {
 		"action": "enter_insert_mode",
 		"description": "Change",
-		"action_args": {"insert_command": "left_delete"}},
+		"action_args": {"insert_command": "vi_delete"}},
 		"context": [{"key": "setting.command_mode"}]
 	},
 
@@ -613,7 +613,7 @@
 
 	{ "keys": ["C"], "command": "set_action_motion", "args": {
 		"action": "enter_insert_mode",
-		"action_args": {"insert_command": "left_delete"},
+		"action_args": {"insert_command": "vi_delete"},
 		"motion": "vi_move_to_hard_eol",
 		"motion_args": {"repeat": 1, "extend": true},
 		"motion_inclusive": true },
@@ -629,7 +629,7 @@
 
 	{ "keys": ["s"], "command": "set_action_motion", "args": {
 		"action": "enter_insert_mode",
-		"action_args": {"insert_command": "left_delete"},
+		"action_args": {"insert_command": "vi_delete"},
 		"motion": "vi_move_by_characters_in_line",
 		"motion_args": {"forward": true, "extend": true, "visual": false }},
 		"context": [{"key": "setting.command_mode"}]
@@ -637,7 +637,7 @@
 
 	{ "keys": ["S"], "command": "set_action_motion", "args": {
 		"action": "enter_insert_mode",
-		"action_args": {"insert_command": "left_delete"},
+		"action_args": {"insert_command": "vi_delete"},
 		"motion": "expand_selection",
 		"motion_args": {"to": "line_without_eol" }},
 		"context": [{"key": "setting.command_mode"}]
