@@ -545,6 +545,30 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+	{ "keys": ["z", "o"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "O"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "c"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "C"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "n"], "command": "unfold_all",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "R"], "command": "unfold_all",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	// Motions to allow double press to mean entire line
 
 	{ "keys": ["c"], "command": "set_motion", "args": {
