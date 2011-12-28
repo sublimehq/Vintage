@@ -202,11 +202,18 @@
 		"action": "swap_case",
 		"motion": "vi_move_by_characters_in_line",
 		"motion_args": {"forward": true, "extend": true, "visual": false } },
-		"context": [{"key": "selection_empty", "operator": "equal", "operand": true}]
+		"context":
+		[
+			{"key": "selection_empty", "operator": "equal", "operand": true},
+			{"key": "setting.command_mode"}
+		]
 	},
 
-	{ "keys": ["~"], "command": "swap_case",
-		"context": [{"key": "selection_empty", "operator": "equal", "operand": false}]
+	{ "keys": ["~"], "command": "swap_case", "context":
+		[
+			{"key": "selection_empty", "operator": "equal", "operand": false},
+			{"key": "setting.command_mode"}
+		]
 	},
 
 	{ "keys": ["q", "<character>"], "command": "vi_begin_record_macro",
