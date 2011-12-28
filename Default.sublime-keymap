@@ -16,6 +16,12 @@
 		]
 	},
 
+	{ "keys": ["escape"], "command": "hide_auto_complete", "context":
+		[
+			{ "key": "auto_complete_visible", "operator": "equal", "operand": true }
+		]
+	},
+
 	{ "keys": ["ctrl+["], "command": "exit_insert_mode",
 		"context":
 		[
