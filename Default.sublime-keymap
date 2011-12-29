@@ -35,23 +35,6 @@
 		]
 	},
 
-	{ "keys": ["ctrl+c"], "command": "exit_insert_mode",
-		"context":
-		[
-			{ "key": "setting.command_mode", "operand": false },
-			{ "key": "setting.is_widget", "operand": false }
-		]
-	},
-
-	{ "keys": ["ctrl+c"], "command": "exit_visual_mode",
-		"context":
-		[
-			{ "key": "setting.command_mode"},
-			{ "key": "num_selections", "operand": 1},
-			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
-		]
-	},
-
 	{ "keys": ["ctrl+w", "c"], "command": "close",
 		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
