@@ -52,15 +52,20 @@
 		]
 	},
 
-	{ "keys": ["ctrl+w", "c"], "command": "close"},
-	{ "keys": ["ctrl+w", "q"], "command": "close"},
+	{ "keys": ["ctrl+w", "c"], "command": "close",
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "q"], "command": "close",
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
 	{ "keys": ["ctrl+w", "o"], "command": "set_layout",
         "args":
         {
             "cols": [0.0, 1.0],
             "rows": [0.0, 1.0],
             "cells": [[0, 0, 1, 1]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 	{ "keys": ["ctrl+w", "ctrl+o"], "command": "set_layout",
         "args":
@@ -68,7 +73,8 @@
             "cols": [0.0, 1.0],
             "rows": [0.0, 1.0],
             "cells": [[0, 0, 1, 1]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 
 	{ "keys": ["ctrl+w", "s"], "command": "set_layout",
@@ -77,7 +83,8 @@
             "cols": [0.0, 1.0],
             "rows": [0.0, 0.5, 1.0],
             "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 	{ "keys": ["ctrl+w", "ctrl+s"], "command": "set_layout",
         "args":
@@ -85,7 +92,8 @@
             "cols": [0.0, 1.0],
             "rows": [0.0, 0.5, 1.0],
             "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 
 	{ "keys": ["ctrl+w", "v"], "command": "set_layout",
@@ -94,7 +102,8 @@
             "cols": [0.0, 0.5, 1.0],
             "rows": [0.0, 1.0],
             "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 	{ "keys": ["ctrl+w", "ctrl+v"], "command": "set_layout",
         "args":
@@ -102,7 +111,8 @@
             "cols": [0.0, 0.5, 1.0],
             "rows": [0.0, 1.0],
             "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
-        }
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
 	},
 
 	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
