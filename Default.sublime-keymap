@@ -169,6 +169,11 @@
 
 	{ "keys": ["."], "command": "repeat", "context": [{"key": "setting.command_mode"}] },
 
+	{ "keys": ["r", "enter"], "command": "run_macro_file",
+		"args": {"file": "Packages/Vintage/Replace With Newline.sublime-macro"},
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	{ "keys": ["r", "<character>"], "command": "replace_character",
 		"context": [{"key": "setting.command_mode"}]
 	},

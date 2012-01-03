@@ -1,0 +1,7 @@
+[
+	{"command": "replace_character", "args": {"character": "\n"}},
+	{"command": "split_selection_into_lines"},
+    {"command": "move", "args": {"by": "lines", "forward": true}},
+    {"command": "move_to", "args": {"to": "bol", "extend": false}},
+    {"command": "reindent", "args": {"force_indent": false}}
+]
