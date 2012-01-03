@@ -241,10 +241,10 @@
 	},
 
 	{ "keys": ["ctrl+w", "c"], "command": "close",
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+w", "q"], "command": "close",
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+w", "o"], "command": "set_layout",
 		"args":
@@ -253,7 +253,7 @@
 			"rows": [0.0, 1.0],
 			"cells": [[0, 0, 1, 1]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+w", "ctrl+o"], "command": "set_layout",
 		"args":
@@ -262,7 +262,7 @@
 			"rows": [0.0, 1.0],
 			"cells": [[0, 0, 1, 1]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 
 	{ "keys": ["ctrl+w", "s"], "command": "set_layout",
@@ -272,7 +272,7 @@
 			"rows": [0.0, 0.5, 1.0],
 			"cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+w", "ctrl+s"], "command": "set_layout",
 		"args":
@@ -281,7 +281,7 @@
 			"rows": [0.0, 0.5, 1.0],
 			"cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 
 	{ "keys": ["ctrl+w", "v"], "command": "set_layout",
@@ -291,7 +291,7 @@
 			"rows": [0.0, 1.0],
 			"cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 	{ "keys": ["ctrl+w", "ctrl+v"], "command": "set_layout",
 		"args":
@@ -300,7 +300,7 @@
 			"rows": [0.0, 1.0],
 			"cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
 		},
-		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 
 	//
