@@ -41,6 +41,69 @@
 		]
 	},
 
+	{ "keys": ["ctrl+w", "c"], "command": "close",
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "q"], "command": "close",
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "o"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "ctrl+o"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+
+	{ "keys": ["ctrl+w", "s"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 0.5, 1.0],
+            "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "ctrl+s"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 0.5, 1.0],
+            "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+
+	{ "keys": ["ctrl+w", "v"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+	{ "keys": ["ctrl+w", "ctrl+v"], "command": "set_layout",
+        "args":
+        {
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+        },
+		"context": [{ "key": "setting.vintage_ctrl_keys" }]
+	},
+
 	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
 
 	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
@@ -574,6 +637,30 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+	{ "keys": ["z", "o"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "O"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "c"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "C"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "n"], "command": "unfold_all",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "R"], "command": "unfold_all",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	// Motions to allow double press to mean entire line
 
 	{ "keys": ["c"], "command": "set_motion", "args": {
@@ -610,7 +697,6 @@
 
 	{ "keys": [">"], "command": "set_motion", "args": {
 		"motion": "expand_selection",
-		"motion_args": {"to": "line" },
 		"mode": "normal"},
 		"context":
 		[
@@ -621,12 +707,21 @@
 
 	{ "keys": ["<"], "command": "set_motion", "args": {
 		"motion": "expand_selection",
-		"motion_args": {"to": "line" },
 		"mode": "normal"},
 		"context":
 		[
 			{"key": "setting.command_mode"},
 			{"key": "vi_action", "operand": "vi_unindent"}
+		]
+	},
+
+	{ "keys": ["="], "command": "set_motion", "args": {
+		"motion": "expand_selection",
+		"mode": "normal"},
+		"context":
+		[
+			{"key": "setting.command_mode"},
+			{"key": "vi_action", "operand": "reindent"}
 		]
 	},
 
