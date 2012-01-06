@@ -605,7 +605,7 @@ class ViEval(sublime_plugin.TextCommand):
                         # they're on, and to start from the RHS of the
                         # character
                         transform_selection_regions(self.view,
-                            lambda r: sublime.Region(r.b, r.b + 1, r.xpos) if r.empty() else r)
+                            lambda r: sublime.Region(r.b, r.b + 1, r.xpos()) if r.empty() else r)
 
                     self.view.run_command(motion_command, motion_args)
 
