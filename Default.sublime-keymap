@@ -716,6 +716,7 @@
 
 	{ "keys": [">"], "command": "set_motion", "args": {
 		"motion": "expand_selection",
+		"motion_args": {"to": "line" },
 		"mode": "normal"},
 		"context":
 		[
@@ -726,6 +727,7 @@
 
 	{ "keys": ["<"], "command": "set_motion", "args": {
 		"motion": "expand_selection",
+		"motion_args": {"to": "line" },
 		"mode": "normal"},
 		"context":
 		[
