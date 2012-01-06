@@ -39,3 +39,10 @@ class ViOpenFileUnderSelectionCommand(sublime_plugin.TextCommand):
                                     file_name)
         if os.path.exists(file_name):
             self.view.window().open_file(file_name)
+            
+class ViSaveAndExit(sublime_plugin.WindowCommand):
+    def run(self):
+        self.window.run_command('save')
+        self.window.run_command('close')
+        if len(self.window.views()) == 0:
+            self.window.run_command('close')
