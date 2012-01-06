@@ -41,29 +41,10 @@
 		]
 	},
 
-	{ "keys": ["ctrl+c"], "command": "exit_insert_mode",
-		"context":
-		[
-			{ "key": "setting.command_mode", "operand": false },
-			{ "key": "setting.is_widget", "operand": false },
-			{ "key": "setting.vintage_ctrl_keys" }
-		]
-	},
-
-	{ "keys": ["ctrl+c"], "command": "exit_visual_mode",
-		"context":
-		[
-			{ "key": "setting.command_mode"},
-			{ "key": "num_selections", "operand": 1},
-			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false },
-			{ "key": "setting.vintage_ctrl_keys" }
-		]
-	},
-
 	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
 
 	{ "keys": ["Z", "Z"], "command" : "vi_save_and_exit", "context": [{"key": "setting.command_mode"}] },
- 
+
 	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["I"], "command": "enter_insert_mode", "args":
 		{"insert_command": "vi_move_to_first_non_white_space_character"},
