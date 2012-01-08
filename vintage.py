@@ -88,6 +88,10 @@ def reset_input_state(view, reset_motion_mode = True):
     if reset_motion_mode:
         set_motion_mode(view, MOTION_MODE_NORMAL)
 
+class ViCancelCurrentAction(sublime_plugin.TextCommand):
+    def run(self, action, action_args = {}, motion_mode = None, description = None):
+        reset_input_state(self.view, True)
+
 def string_to_motion_mode(mode):
     if mode == 'normal':
         return MOTION_MODE_NORMAL
@@ -162,6 +166,10 @@ class InputStateTracker(sublime_plugin.EventListener):
             v = g_input_state.action_command is not None
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
+        elif key == "vi_has_register":
+            r = g_input_state.register is not None
+            if operator == sublime.OP_EQUAL: return r == operand
+            if operator == sublime.OP_NOT_EQUAL: return r != operand
         elif key == "vi_motion_mode":
             m = string_to_motion_mode(operand)
             if operator == sublime.OP_EQUAL:
