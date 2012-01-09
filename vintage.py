@@ -42,28 +42,26 @@ def update_status_line(view):
     elif cmd_mode and view.has_non_empty_selection_region():
         view.set_status('mode', 'VISUAL MODE')
     elif cmd_mode:
-        desc = None
+        desc = []
         if g_input_state.register:
-            desc = 'Register "' + g_input_state.register + '" - '
+            desc.append('Register "' + g_input_state.register + '"')
+
+        if g_input_state.action_command is not None:
+            if g_input_state.action_description:
+                desc.append(g_input_state.action_description)
+            else:
+                desc.append(g_input_state.action_command)
 
         repeat = (digits_to_number(g_input_state.prefix_repeat_digits)
             * digits_to_number(g_input_state.motion_repeat_digits))
-        if g_input_state.action_command is not None or repeat != 1:
-            cmd_desc = g_input_state.action_command
-            if g_input_state.action_description:
-                cmd_desc = g_input_state.action_description
-
-            if cmd_desc and desc:
-                desc += " "
-                desc += cmd_desc
-
-            if repeat != 1 and desc:
-                desc = desc + " * " + str(repeat)
-            elif repeat != 1:
-                desc = "* " + str(repeat)
+        if repeat != 1:
+            if g_input_state.action_command is not None:
+                desc[-1] += " * " + str(repeat)
+            else:
+                desc.append("* " + str(repeat))
 
         if desc:
-            view.set_status('mode', 'COMMAND MODE - ' + desc)
+            view.set_status('mode', 'COMMAND MODE - ' + ' - '.join(desc))
         else:
             view.set_status('mode', 'COMMAND MODE')
     else:
