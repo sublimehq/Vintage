@@ -23,6 +23,7 @@
         [
             { "key": "setting.command_mode" },
             { "key": "vi_has_action" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
             { "key": "setting.vintage_ctrl_keys" }
         ]
     },
@@ -32,6 +33,7 @@
         [
             { "key": "setting.command_mode" },
             { "key": "vi_has_repeat_digit" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
             { "key": "setting.vintage_ctrl_keys" }
         ]
     },
@@ -41,6 +43,7 @@
         [
             { "key": "setting.command_mode" },
             { "key": "vi_has_register" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
             { "key": "setting.vintage_ctrl_keys" }
         ]
     },

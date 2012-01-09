@@ -25,6 +25,7 @@
 	{ "keys": ["escape"], "command": "vi_cancel_current_action", "context":
 		[
 			{ "key": "setting.command_mode" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "vi_has_action" }
 		]
 	},
@@ -32,6 +33,7 @@
 	{ "keys": ["escape"], "command": "vi_cancel_current_action", "context":
 		[
 			{ "key": "setting.command_mode" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "vi_has_repeat_digit" }
 		]
 	},
@@ -39,6 +41,7 @@
 	{ "keys": ["escape"], "command": "vi_cancel_current_action", "context":
 		[
 			{ "key": "setting.command_mode" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "vi_has_register" }
 		]
 	},
@@ -66,6 +69,7 @@
 		[
 			{ "key": "setting.command_mode" },
 			{ "key": "vi_has_action" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "setting.vintage_ctrl_keys" }
 		]
 	},
@@ -74,6 +78,7 @@
 		[
 			{ "key": "setting.command_mode" },
 			{ "key": "vi_has_repeat_digit" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "setting.vintage_ctrl_keys" }
 		]
 	},
@@ -82,6 +87,7 @@
 		[
 			{ "key": "setting.command_mode" },
 			{ "key": "vi_has_register" },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
 			{ "key": "setting.vintage_ctrl_keys" }
 		]
 	},
