@@ -136,7 +136,7 @@ class ViGotoLine(sublime_plugin.TextCommand):
         # G or gg
         if not explicit_repeat:
             self.view.run_command('move_to', {'to': ending, 'extend':extend})
-        # <addr>G or <addr>gg
+        # <count>G or <count>gg
         else:
             new_address = int(repeat) - 1
             target_pt = self.view.text_point(new_address, 0)
