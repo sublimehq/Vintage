@@ -520,8 +520,9 @@
 	},
 
 	{ "keys": ["g", "g"], "command": "set_motion", "args": {
-		"motion": "move_to",
-		"motion_args": {"to": "bof", "extend": true }},
+		"motion": "vi_goto_line",
+		"motion_args": {"repeat": 1, "explicit_repeat": true, "extend": true,
+						"forward": false }},
 		"context": [{"key": "setting.command_mode"}]
 	},
 
