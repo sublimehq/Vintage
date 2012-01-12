@@ -515,14 +515,15 @@
 
 	{ "keys": ["G"], "command": "set_motion", "args": {
 		"motion": "vi_goto_line",
-		"motion_args": {"repeat": 1, "explicit_repeat": true, "extend": true }},
+		"motion_args": {"repeat": 1, "explicit_repeat": true, "extend": true,
+						"ending": "eof" }},
 		"context": [{"key": "setting.command_mode"}]
 	},
 
 	{ "keys": ["g", "g"], "command": "set_motion", "args": {
 		"motion": "vi_goto_line",
 		"motion_args": {"repeat": 1, "explicit_repeat": true, "extend": true,
-						"forward": false }},
+						"ending": "bof" }},
 		"context": [{"key": "setting.command_mode"}]
 	},
 

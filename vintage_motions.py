@@ -132,11 +132,10 @@ class ViMoveToBrackets(sublime_plugin.TextCommand):
 
 class ViGotoLine(sublime_plugin.TextCommand):
     def run(self, edit, repeat=1, explicit_repeat=True, extend=False,
-            forward=True):
+            ending='eof'):
         # G or gg
         if not explicit_repeat:
-            where_to = 'eof' if forward else 'bof'
-            self.view.run_command('move_to', {'to': where_to, 'extend':extend})
+            self.view.run_command('move_to', {'to': ending, 'extend':extend})
         # <addr>G or <addr>gg
         else:
             new_address = int(repeat) - 1
