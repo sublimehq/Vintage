@@ -11,7 +11,7 @@ Vintage is shipped by default with Sublime Text 2. To use this development versi
    git clone git@github.com:sublimehq/Vintage.git "Vintage Dev"
 
 
-DOCUMENTATION
+Documentation
 =============
 
 * `Vintage Mode Overview`_
@@ -23,7 +23,7 @@ DOCUMENTATION
 ..   _Key Bindings: http://sublimetext.info/docs/en/customization/key_bindings.html
 
 
-LICENSE
+License
 =======
 
 Vintage is made available under the MIT license:
