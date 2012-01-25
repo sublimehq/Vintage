@@ -487,7 +487,7 @@ def clip_empty_selection_to_line_contents(view):
         if s.empty():
             l = view.line(s.b)
             if s.b == l.b and not l.empty():
-                s = sublime.Region(l.b - 1)
+                s = sublime.Region(l.b - 1, l.b - 1, s.xpos())
 
         new_sel.append(s)
 
@@ -497,12 +497,12 @@ def clip_empty_selection_to_line_contents(view):
 
 def shrink_inclusive(r):
     if r.a < r.b:
-        return sublime.Region(r.b - 1)
+        return sublime.Region(r.b - 1, r.b - 1, r.xpos())
     else:
-        return sublime.Region(r.b)
+        return sublime.Region(r.b, r.b, r.xpos())
 
 def shrink_exclusive(r):
-    return sublime.Region(r.b)
+    return sublime.Region(r.b, r.b, r.xpos())
 
 # This is the core: it takes a motion command, action command, and repeat
 # counts, and runs them all.
@@ -605,7 +605,7 @@ class ViEval(sublime_plugin.TextCommand):
                         # they're on, and to start from the RHS of the
                         # character
                         transform_selection_regions(self.view,
-                            lambda r: sublime.Region(r.b, r.b + 1) if r.empty() else r)
+                            lambda r: sublime.Region(r.b, r.b + 1, r.xpos()) if r.empty() else r)
 
                     self.view.run_command(motion_command, motion_args)
 

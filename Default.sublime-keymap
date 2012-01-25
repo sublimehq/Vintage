@@ -43,6 +43,8 @@
 
 	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
 
+	{ "keys": ["Z", "Z"], "command" : "vi_save_and_exit", "context": [{"key": "setting.command_mode"}] },
+
 	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
 	{ "keys": ["I"], "command": "enter_insert_mode", "args":
 		{"insert_command": "vi_move_to_first_non_white_space_character"},
@@ -169,6 +171,11 @@
 
 	{ "keys": ["."], "command": "repeat", "context": [{"key": "setting.command_mode"}] },
 
+	{ "keys": ["r", "enter"], "command": "run_macro_file",
+		"args": {"file": "Packages/Vintage/Replace With Newline.sublime-macro"},
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	{ "keys": ["r", "<character>"], "command": "replace_character",
 		"context": [{"key": "setting.command_mode"}]
 	},
@@ -233,6 +240,42 @@
 	},
 	{ "keys": ["ctrl+e"], "command": "scroll_lines", "args": {"amount": -1.0 },
 		"context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
+	},
+
+	{ "keys": ["ctrl+w", "c"], "command": "close",
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+	{ "keys": ["ctrl+w", "q"], "command": "close",
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+	{ "keys": ["ctrl+w", "o"], "command": "set_layout",
+		"args":
+		{
+			"cols": [0.0, 1.0],
+			"rows": [0.0, 1.0],
+			"cells": [[0, 0, 1, 1]]
+		},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["ctrl+w", "s"], "command": "set_layout",
+		"args":
+		{
+			"cols": [0.0, 1.0],
+			"rows": [0.0, 0.5, 1.0],
+			"cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+		},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["ctrl+w", "v"], "command": "set_layout",
+		"args":
+		{
+			"cols": [0.0, 0.5, 1.0],
+			"rows": [0.0, 1.0],
+			"cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+		},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 
 	//
@@ -556,16 +599,40 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
- 	{ "keys": ["z", "."], "command": "set_motion", "args": {
+	{ "keys": ["z", "."], "command": "set_motion", "args": {
 		"motion": "scroll_current_line_to_screen_center",
- 		"motion_args": {"repeat": 1}},
- 		"context": [{"key": "setting.command_mode"}]
- 	},
+		"motion_args": {"repeat": 1}},
+		"context": [{"key": "setting.command_mode"}]
+	},
 
 	{ "keys": ["z", "enter"], "command": "set_motion", "args": {
 		"motion": "scroll_current_line_to_screen_top",
 		"motion_args": {"repeat": 1}
 		},
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "o"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "O"], "command": "unfold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "c"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "C"], "command": "fold",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "n"], "command": "unfold_all",
+		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["z", "R"], "command": "unfold_all",
 		"context": [{"key": "setting.command_mode"}]
 	},
 
@@ -622,6 +689,16 @@
 		[
 			{"key": "setting.command_mode"},
 			{"key": "vi_action", "operand": "vi_unindent"}
+		]
+	},
+
+	{ "keys": ["="], "command": "set_motion", "args": {
+		"motion": "expand_selection",
+		"mode": "normal"},
+		"context":
+		[
+			{"key": "setting.command_mode"},
+			{"key": "vi_action", "operand": "reindent"}
 		]
 	},
 
