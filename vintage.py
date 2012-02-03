@@ -907,7 +907,7 @@ class ReplaceCharacter(sublime_plugin.TextCommand):
                 new_sel.append(s)
             else:
                 self.view.replace(edit, s, character * len(s))
-                new_sel.append(s)
+                new_sel.append(sublime.Region(s.begin()))
 
         self.view.sel().clear()
         for s in new_sel:
