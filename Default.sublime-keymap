@@ -171,8 +171,8 @@
 
 	{ "keys": ["."], "command": "repeat", "context": [{"key": "setting.command_mode"}] },
 
-	{ "keys": ["r", "enter"], "command": "run_macro_file",
-		"args": {"file": "Packages/Vintage/Replace With Newline.sublime-macro"},
+	{ "keys": ["r", "enter"], "command": "replace_character",
+		"args": {"character": "\n"},
 		"context": [{"key": "setting.command_mode"}]
 	},
 

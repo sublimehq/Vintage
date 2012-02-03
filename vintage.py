@@ -901,17 +901,31 @@ class PasteFromRegisterCommand(sublime_plugin.TextCommand):
 class ReplaceCharacter(sublime_plugin.TextCommand):
     def run(self, edit, character):
         new_sel = []
+        created_new_line = False
         for s in reversed(self.view.sel()):
             if s.empty():
                 self.view.replace(edit, sublime.Region(s.b, s.b + 1), character)
-                new_sel.append(s)
+                if character == "\n":
+                    created_new_line = True
+                    # selection should be in the first column of the newly
+                    # created line
+                    new_sel.append(sublime.Region(s.b + 1))
+                else:
+                    new_sel.append(s)
             else:
-                self.view.replace(edit, s, character * len(s))
+                # Vim replaces characters with unprintable ones when r<enter> is
+                # pressed from visual mode.  Let's not make a replacement in
+                # that case.
+                if character != "\n":
+                    self.view.replace(edit, s, character * len(s))
                 new_sel.append(sublime.Region(s.begin()))
 
         self.view.sel().clear()
         for s in new_sel:
             self.view.sel().add(s)
+
+        if created_new_line and self.view.settings().get('auto_indent'):
+            self.view.window().run_command('reindent')
 
 class CenterOnCursor(sublime_plugin.TextCommand):
     def run(self, edit):
