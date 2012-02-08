@@ -917,6 +917,16 @@ class CenterOnCursor(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.show_at_center(self.view.sel()[0])
 
+class ScrollCursorLineToTop(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.set_viewport_position((self.view.viewport_position()[0], self.view.layout_extent()[1]))
+        self.view.show(self.view.sel()[0], False)
+
+class ScrollCursorLineToBottom(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.set_viewport_position((self.view.viewport_position()[0], 0.0))
+        self.view.show(self.view.sel()[0], False)
+
 class ViIndent(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.run_command('indent')
