@@ -14,7 +14,6 @@ g_registers = {}
 # * set_action
 # * set_motion
 # * push_repeat_digit
-
 class InputState:
     prefix_repeat_digits = []
     action_command = None
@@ -174,6 +173,13 @@ class InputStateTracker(sublime_plugin.EventListener):
                 v = len(g_input_state.motion_repeat_digits) > 0
             else:
                 v = len(g_input_state.prefix_repeat_digits) > 0
+            if operator == sublime.OP_EQUAL: return v == operand
+            if operator == sublime.OP_NOT_EQUAL: return v != operand
+        elif key == "vi_has_input_state":
+            v = (len(g_input_state.motion_repeat_digits) > 0 or
+                len(g_input_state.prefix_repeat_digits) > 0 or
+                g_input_state.action_command is not None or
+                g_input_state.register is not None)
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
         elif key == "vi_can_enter_text_object":
