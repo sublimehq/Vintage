@@ -18,6 +18,36 @@
         ]
     },
 
+    { "keys": ["ctrl+c"], "command": "vi_cancel_current_action",
+        "context":
+        [
+            { "key": "setting.command_mode" },
+            { "key": "vi_has_action" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
+            { "key": "setting.vintage_ctrl_keys" }
+        ]
+    },
+
+    { "keys": ["ctrl+c"], "command": "vi_cancel_current_action",
+        "context":
+        [
+            { "key": "setting.command_mode" },
+            { "key": "vi_has_repeat_digit" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
+            { "key": "setting.vintage_ctrl_keys" }
+        ]
+    },
+
+    { "keys": ["ctrl+c"], "command": "vi_cancel_current_action",
+        "context":
+        [
+            { "key": "setting.command_mode" },
+            { "key": "vi_has_register" },
+            { "key": "selection_empty", "operator": "equal", "operand": true, "match_all": false },
+            { "key": "setting.vintage_ctrl_keys" }
+        ]
+    },
+
     { "keys": ["left"], "command": "set_motion", "args": {
         "motion": "vi_move_by_characters_in_line",
         "motion_args": {"forward": false, "extend": true }},

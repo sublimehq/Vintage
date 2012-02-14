@@ -33,39 +33,35 @@ g_input_state = InputState()
 
 # Updates the status bar to reflect the current mode and input state
 def update_status_line(view):
-    cmd_mode = view.settings().get('command_mode')
+    desc = []
 
-    if cmd_mode and g_input_state.motion_mode == MOTION_MODE_LINE:
-        view.set_status('mode', 'VISUAL LINE MODE')
-    elif cmd_mode and view.has_non_empty_selection_region():
-        view.set_status('mode', 'VISUAL MODE')
-    elif cmd_mode:
-        desc = None
-        if g_input_state.register:
-            desc = 'Register "' + g_input_state.register + '" - '
-
-        repeat = (digits_to_number(g_input_state.prefix_repeat_digits)
-            * digits_to_number(g_input_state.motion_repeat_digits))
-        if g_input_state.action_command is not None or repeat != 1:
-            cmd_desc = g_input_state.action_command
-            if g_input_state.action_description:
-                cmd_desc = g_input_state.action_description
-
-            if cmd_desc and desc:
-                desc += " "
-                desc += cmd_desc
-
-            if repeat != 1 and desc:
-                desc = desc + " * " + str(repeat)
-            elif repeat != 1:
-                desc = "* " + str(repeat)
-
-        if desc:
-            view.set_status('mode', 'COMMAND MODE - ' + desc)
+    if view.settings().get('command_mode'):
+        if g_input_state.motion_mode == MOTION_MODE_LINE:
+            desc = ['VISUAL LINE MODE']
+        elif view.has_non_empty_selection_region():
+            desc = ['VISUAL MODE']
         else:
-            view.set_status('mode', 'COMMAND MODE')
+            desc = ['COMMAND MODE']
+            if g_input_state.action_command is not None:
+                if g_input_state.action_description:
+                    desc.append(g_input_state.action_description)
+                else:
+                    desc.append(g_input_state.action_command)
+
+            repeat = (digits_to_number(g_input_state.prefix_repeat_digits)
+                * digits_to_number(g_input_state.motion_repeat_digits))
+            if repeat != 1:
+                if g_input_state.action_command is not None:
+                    desc[-1] += " * " + str(repeat)
+                else:
+                    desc.append("* " + str(repeat))
+
+        if g_input_state.register is not None:
+            desc.insert(1, 'Register "' + g_input_state.register + '"')
     else:
-        view.set_status('mode', 'INSERT MODE')
+        desc = ['INSERT MODE']
+
+    view.set_status('mode', ' - '.join(desc))
 
 def set_motion_mode(view, mode):
     g_input_state.motion_mode = mode
@@ -86,6 +82,10 @@ def reset_input_state(view, reset_motion_mode = True):
     g_input_state.register = None
     if reset_motion_mode:
         set_motion_mode(view, MOTION_MODE_NORMAL)
+
+class ViCancelCurrentAction(sublime_plugin.TextCommand):
+    def run(self, action, action_args = {}, motion_mode = None, description = None):
+        reset_input_state(self.view, True)
 
 def string_to_motion_mode(mode):
     if mode == 'normal':
@@ -159,6 +159,10 @@ class InputStateTracker(sublime_plugin.EventListener):
             v = g_input_state.action_command is not None
             if operator == sublime.OP_EQUAL: return v == operand
             if operator == sublime.OP_NOT_EQUAL: return v != operand
+        elif key == "vi_has_register":
+            r = g_input_state.register is not None
+            if operator == sublime.OP_EQUAL: return r == operand
+            if operator == sublime.OP_NOT_EQUAL: return r != operand
         elif key == "vi_motion_mode":
             m = string_to_motion_mode(operand)
             if operator == sublime.OP_EQUAL:
