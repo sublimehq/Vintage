@@ -650,13 +650,15 @@ class EnterInsertMode(sublime_plugin.TextCommand):
         else:
             return self.run()
 
-    def run(self, insert_command = None, insert_args = None):
+    def run(self, insert_command = None, insert_args = {}, register = '"'):
         # mark_undo_groups_for_gluing allows all commands run while in insert
         # mode to comprise a single undo group, which is important for '.' to
         # work as desired.
         self.view.run_command('maybe_mark_undo_groups_for_gluing')
         if insert_command:
-            self.view.run_command(insert_command, insert_args)
+            args = insert_args.copy()
+            args.update({'register': register})
+            self.view.run_command(insert_command, args)
 
         self.view.settings().set('command_mode', False)
         self.view.settings().set('inverse_caret_state', False)
