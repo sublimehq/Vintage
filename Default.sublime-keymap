@@ -327,6 +327,11 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+	{
+		"keys": ["g", "q"], "command": "set_action", "args": {"action": "wrap_lines", "description": "Wrap Lines"},
+		"context": [{"key": "setting.command_mode"}]
+	},
+
 	{ "keys": [">"], "command": "set_action", "args": {"action": "vi_indent", "description": "Indent", "motion_mode": "auto_line"},
 		"context": [{"key": "setting.command_mode"}]
 	},
