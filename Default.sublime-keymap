@@ -678,8 +678,8 @@
 	// Motions to allow double press to mean entire line
 
 	{ "keys": ["c"], "command": "set_motion", "args": {
-		"motion": "expand_selection",
-		"motion_args": {"to": "line_without_eol" }},
+		"motion": "vi_dont_move",
+		"linewise": true},
 		"context":
 		[
 			{"key": "setting.command_mode"},
@@ -778,8 +778,8 @@
 	{ "keys": ["S"], "command": "set_action_motion", "args": {
 		"action": "enter_insert_mode",
 		"action_args": {"insert_command": "vi_delete"},
-		"motion": "expand_selection",
-		"motion_args": {"to": "line_without_eol" }},
+		"motion": "vi_dont_move",
+		"motion_linewise": true},
 		"context": [{"key": "setting.command_mode"}]
 	},
 
