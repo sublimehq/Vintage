@@ -273,7 +273,7 @@ class ViExpandToBrackets(sublime_plugin.TextCommand):
             self.view.run_command('expand_selection', {'to': 'brackets', 'brackets': character})
 
 class ViExpandToParagraph(sublime_plugin.TextCommand):
-    def run(self, edit, outer = False, repeat = 1):
+    def run(self, edit):
         self.view.run_command('expand_selection_to_paragraph')
 
 class ScrollCurrentLineToScreenTop(sublime_plugin.TextCommand):

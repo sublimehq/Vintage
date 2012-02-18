@@ -921,11 +921,10 @@
 		"context": [{"key": "setting.command_mode"}, {"key": "vi_can_enter_text_object"}]
 	},
 	{ "keys": ["a", "p"], "command": "set_motion", "args": {
-		"motion": "vi_expand_to_paragraph",
-		"motion_args": {"repeat": 1}},
+		"motion": "vi_expand_to_paragraph"},
 		"context": [{"key": "setting.command_mode"}, {"key": "vi_can_enter_text_object"}]
 	},
-
+	
 	//
 	// Repeat digits
 	//
