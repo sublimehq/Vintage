@@ -772,8 +772,11 @@ class ViPasteRight(sublime_plugin.TextCommand):
             return pt + 1
 
     def run(self, edit, register = '"'):
-        transform_selection(self.view, lambda pt: self.advance(pt))
-        self.view.run_command('paste_from_register', {'forward': True, 'register': register})
+        visual_mode = self.view.has_non_empty_selection_region()
+        if not visual_mode:
+            transform_selection(self.view, lambda pt: self.advance(pt))
+        self.view.run_command('paste_from_register', {'forward': not visual_mode,
+                                                      'register': register})
 
 class ViPasteLeft(sublime_plugin.TextCommand):
     # Ensure the register is picked up from g_input_state, and that it'll be
@@ -852,6 +855,9 @@ class PasteFromRegisterCommand(sublime_plugin.TextCommand):
         if not text:
             sublime.status_message("Undefined register" + register)
             return
+
+        if self.view.has_non_empty_selection_region():
+            self.view.run_command('vi_delete')
 
         regions = [r for r in self.view.sel()]
         new_sel = []
