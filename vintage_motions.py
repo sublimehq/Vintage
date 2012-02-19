@@ -2,9 +2,12 @@ import sublime, sublime_plugin
 from vintage import transform_selection
 from vintage import transform_selection_regions
 
-class ViDontMove(sublime_plugin.TextCommand):
-    def run(self, edit):
-        pass
+class ViSpanCountLines(sublime_plugin.TextCommand):
+    def run(self, edit, repeat = 1):
+        for i in xrange(repeat - 1):
+            self.view.run_command('move', {'by': 'lines',
+                                           'extend': True,
+                                           'forward': True})
 
 class ViMoveByCharactersInLine(sublime_plugin.TextCommand):
     def run(self, edit, forward = True, extend = False, visual = False):
