@@ -364,7 +364,7 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
-	{ "keys": ["="], "command": "set_action", "args": {"action": "reindent", "description": "Reindent"},
+	{ "keys": ["="], "command": "set_action", "args": {"action": "reindent", "description": "Reindent", "action_args": {"force_indent": false}},
 		"context": [{"key": "setting.command_mode"}]
 	},
 

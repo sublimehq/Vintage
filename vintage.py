@@ -611,7 +611,7 @@ class ViEval(sublime_plugin.TextCommand):
                 # Apply the action to the selection
                 self.view.run_command(action_command, action_args)
                 if reindent and self.view.settings().get('auto_indent'):
-                    self.view.run_command('reindent')
+                    self.view.run_command('reindent', {'force_indent': False})
 
         if not visual_mode:
             # Shrink the selection down to a point
@@ -920,7 +920,7 @@ class ReplaceCharacter(sublime_plugin.TextCommand):
             self.view.sel().add(s)
 
         if created_new_line and self.view.settings().get('auto_indent'):
-            self.view.run_command('reindent')
+            self.view.run_command('reindent', {'force_indent': False})
 
 class CenterOnCursor(sublime_plugin.TextCommand):
     def run(self, edit):
