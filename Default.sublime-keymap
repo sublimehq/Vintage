@@ -922,7 +922,11 @@
 		"motion_args": {"character": "{", "outer": true}},
 		"context": [{"key": "setting.command_mode"}, {"key": "vi_can_enter_text_object"}]
 	},
-
+	{ "keys": ["a", "p"], "command": "set_motion", "args": {
+		"motion": "expand_selection_to_paragraph"},
+		"context": [{"key": "setting.command_mode"}, {"key": "vi_can_enter_text_object"}]
+	},
+	
 	//
 	// Repeat digits
 	//
