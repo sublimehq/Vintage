@@ -482,6 +482,14 @@ def shrink_inclusive(r):
 def shrink_exclusive(r):
     return sublime.Region(r.b, r.b, r.xpos())
 
+def shrink_to_first_char(r):
+    if r.b < r.a:
+        # If the Region is reversed, the first char is the character *before*
+        # the first bound.
+        return sublime.Region(r.a - 1)
+    else:
+        return sublime.Region(r.a)
+
 # This is the core: it takes a motion command, action command, and repeat
 # counts, and runs them all.
 #
@@ -743,7 +751,7 @@ class ViCopy(sublime_plugin.TextCommand):
     def run(self, edit, register = '"'):
         set_register(self.view, register, forward=True)
         set_register(self.view, '0', forward=True)
-        transform_selection_regions(self.view, lambda r: sublime.Region(r.a))
+        transform_selection_regions(self.view, shrink_to_first_char)
 
 class ViPasteRight(sublime_plugin.TextCommand):
     # Ensure the register is picked up from g_input_state, and that it'll be
@@ -939,12 +947,12 @@ class ScrollCursorLineToBottom(sublime_plugin.TextCommand):
 class ViIndent(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.run_command('indent')
-        transform_selection_regions(self.view, lambda r: sublime.Region(r.a))
+        transform_selection_regions(self.view, shrink_to_first_char)
 
 class ViUnindent(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.run_command('unindent')
-        transform_selection_regions(self.view, lambda r: sublime.Region(r.a))
+        transform_selection_regions(self.view, shrink_to_first_char)
 
 class ViSetBookmark(sublime_plugin.TextCommand):
     def run(self, edit, character):
