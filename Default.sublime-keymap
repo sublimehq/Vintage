@@ -67,7 +67,7 @@
 	{ "keys": ["i"], "command": "enter_insert_mode",
 	  "context":
 	  [
-	  		{"key": "setting.command_mode"},
+			{"key": "setting.command_mode"},
 			{"key": "selection_empty"}
 	  ]
 	},
