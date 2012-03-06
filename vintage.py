@@ -612,7 +612,9 @@ class ViEval(sublime_plugin.TextCommand):
                     # cursor should be left on an empty line. Leave the trailing
                     # newline out of the selection to allow for this.
                     transform_selection_regions(self.view,
-                        lambda r: sublime.Region(r.begin(), r.end() - 1))
+                        lambda r: (sublime.Region(r.begin(), r.end() - 1)
+                                   if not r.empty() and self.view.substr(r.end() - 1) == "\n"
+                                   else r))
                     reindent = True
 
             if action_command:
