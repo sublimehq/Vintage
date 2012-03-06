@@ -64,7 +64,14 @@
 
 	{ "keys": ["Z", "Z"], "command" : "vi_save_and_exit", "context": [{"key": "setting.command_mode"}] },
 
-	{ "keys": ["i"], "command": "enter_insert_mode", "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["i"], "command": "enter_insert_mode",
+	  "context":
+	  [
+	  		{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": true}
+	  ]
+	},
+
 	{ "keys": ["I"], "command": "enter_insert_mode", "args":
 		{"insert_command": "vi_move_to_first_non_white_space_character"},
 		"context": [{"key": "setting.command_mode"}]
@@ -72,8 +79,13 @@
 
 	{ "keys": ["a"], "command": "enter_insert_mode", "args":
 		{"insert_command": "move", "insert_args": {"by": "characters", "forward": true} },
-		"context": [{"key": "setting.command_mode"}]
+		"context":
+		[
+			{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": true}
+		]
 	},
+
 	{ "keys": ["A"], "command": "enter_insert_mode", "args":
 		{"insert_command": "move_to", "insert_args": {"to": "hardeol"} },
 		"context": [{"key": "setting.command_mode"}]
