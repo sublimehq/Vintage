@@ -68,7 +68,7 @@
 	  "context":
 	  [
 	  		{"key": "setting.command_mode"},
-			{"key": "selection_empty", "operator": "equal", "operand": true}
+			{"key": "selection_empty"}
 	  ]
 	},
 
@@ -82,7 +82,7 @@
 		"context":
 		[
 			{"key": "setting.command_mode"},
-			{"key": "selection_empty", "operator": "equal", "operand": true}
+			{"key": "selection_empty"}
 		]
 	},
 
@@ -938,7 +938,7 @@
 		"motion": "expand_selection_to_paragraph"},
 		"context": [{"key": "setting.command_mode"}, {"key": "vi_can_enter_text_object"}]
 	},
-	
+
 	//
 	// Repeat digits
 	//
