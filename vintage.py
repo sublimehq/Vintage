@@ -829,7 +829,7 @@ def set_register(view, register, forward):
 
     # FIXME: Potential performance problem?
     prefs = sublime.load_settings("Preferences.sublime-settings")
-    use_sys_clipboard = prefs.get('vintage_clipboard', '')
+    use_sys_clipboard = prefs.get('vintage_clipboard', '') == 'unnamed'
 
     if use_sys_clipboard or register in ('*', '+'):
         sublime.set_clipboard(text)
