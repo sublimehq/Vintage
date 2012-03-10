@@ -827,9 +827,17 @@ def set_register(view, register, forward):
 
     text = "\n".join(text)
 
-    if register == '*' or register == '+':
+    # FIXME: Potential performance problem?
+    prefs = sublime.load_settings("Preferences.sublime-settings")
+    use_sys_clipboard = prefs.get('vintage_clipboard', '')
+
+    if use_sys_clipboard or register in ('*', '+'):
         sublime.set_clipboard(text)
-    elif register == '%':
+        # If the system's clipboard is used, Vim always propagates the data to
+        # the unnamed register too.
+        register = '"'
+
+    if register == '%':
         pass
     else:
         reg = register.lower()
