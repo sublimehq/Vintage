@@ -825,7 +825,7 @@ def set_register(view, register, forward):
         text.append(view.substr(s))
         regions.append(s)
 
-    text = "\n".join(text)
+    text = '\n'.join(text)
 
     # FIXME: Potential performance problem?
     prefs = sublime.load_settings("Preferences.sublime-settings")
@@ -863,7 +863,7 @@ def get_register(view, register):
         return None
 
 def has_register(register):
-    if register in ["%", "*", "+"]:
+    if register in ['%', '*', '+']:
         return True
     else:
         return register in g_registers
