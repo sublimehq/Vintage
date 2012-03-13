@@ -58,9 +58,9 @@
 		]
 	},
 
-	{ "keys" : ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
-	{ "keys" : ["z", "t"], "command" : "scroll_cursor_line_to_top", "context": [{"key": "setting.command_mode"}] },
-	{ "keys" : ["z", "b"], "command" : "scroll_cursor_line_to_bottom", "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["z", "z"], "command" : "center_on_cursor", "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["z", "t"], "command" : "scroll_cursor_line_to_top", "context": [{"key": "setting.command_mode"}] },
+	{ "keys": ["z", "b"], "command" : "scroll_cursor_line_to_bottom", "context": [{"key": "setting.command_mode"}] },
 
 	{ "keys": ["Z", "Z"], "command" : "vi_save_and_exit", "context": [{"key": "setting.command_mode"}] },
 
