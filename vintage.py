@@ -827,7 +827,7 @@ def set_register(view, register, forward):
 
     text = '\n'.join(text)
 
-    use_sys_clipboard = view.settings().get('vintage_use_clipboard', False)
+    use_sys_clipboard = view.settings().get('vintage_use_clipboard', False) is True
 
     if use_sys_clipboard or register in ('*', '+'):
         sublime.set_clipboard(text)
