@@ -316,6 +316,26 @@
 		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
 	},
 
+	{ "keys": ["ctrl+w", "k"], "command": "move_group_focus",
+		"args": {"direction": "up"},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["ctrl+w", "j"], "command": "move_group_focus",
+		"args": {"direction": "down"},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["ctrl+w", "l"], "command": "move_group_focus",
+		"args": {"direction": "right"},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["ctrl+w", "h"], "command": "move_group_focus",
+		"args": {"direction": "left"},
+		"context": [{"key": "setting.vintage_ctrl_keys"}, {"key": "setting.command_mode"}]
+	},
+
 	//
 	// Actions
 	//

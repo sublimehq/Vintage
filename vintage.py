@@ -1016,3 +1016,29 @@ class ViReverseSelectionsDirection(sublime_plugin.TextCommand):
         self.view.sel().clear()
         for s in new_sels:
             self.view.sel().add(s)
+
+class MoveGroupFocus(sublime_plugin.WindowCommand):
+    def run(self, direction):
+        cells = self.window.get_layout()['cells']
+        active_group = self.window.active_group()
+        x1, y1, x2, y2 = cells[active_group]
+
+        idxs = range(len(cells))
+        del idxs[active_group]
+
+        # Matches are any group that shares a border with the active group in the
+        # specified direction.
+        if direction == "up":
+            matches = (i for i in idxs if cells[i][3] == y1 and cells[i][0] < x2 and cells[i][2] > x1)
+        elif direction == "down":
+            matches = (i for i in idxs if cells[i][1] == y2 and cells[i][0] < x2 and cells[i][2] > x1)
+        elif direction == "right":
+            matches = (i for i in idxs if cells[i][0] == x2 and cells[i][1] < y2 and cells[i][3] > y1)
+        elif direction == "left":
+            matches = (i for i in idxs if cells[i][2] == x1 and cells[i][1] < y2 and cells[i][3] > y1)
+
+        # Focus the first group found in the specified direction, if there is one.
+        try:
+            self.window.focus_group(matches.next())
+        except StopIteration:
+            return
