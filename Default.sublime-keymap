@@ -77,6 +77,14 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
+	{ "keys": ["I"], "command": "enter_insert_mode",
+		"args": {"insert_command": "shrink_selections_to_beginning"},
+		"context": [
+			{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": false}
+		]
+	},
+
 	{ "keys": ["a"], "command": "enter_insert_mode", "args":
 		{"insert_command": "move", "insert_args": {"by": "characters", "forward": true} },
 		"context":
@@ -89,6 +97,14 @@
 	{ "keys": ["A"], "command": "enter_insert_mode", "args":
 		{"insert_command": "move_to", "insert_args": {"to": "hardeol"} },
 		"context": [{"key": "setting.command_mode"}]
+	},
+
+	{ "keys": ["A"], "command": "enter_insert_mode",
+		"args": {"insert_command": "shrink_selections_to_end"},
+		"context": [
+			{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": false}
+		]
 	},
 
 	{ "keys": ["o"], "command": "enter_insert_mode", "args":

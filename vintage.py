@@ -721,6 +721,25 @@ class ShrinkSelections(sublime_plugin.TextCommand):
     def run(self, edit):
         transform_selection_regions(self.view, self.shrink)
 
+class ShrinkSelectionsToBeginning(sublime_plugin.TextCommand):
+    def shrink(self, r):
+        return sublime.Region(r.begin())
+
+    def run(self, edit, register = '"'):
+        transform_selection_regions(self.view, self.shrink)
+
+class ShrinkSelectionsToEnd(sublime_plugin.TextCommand):
+    def shrink(self, r):
+        end = r.end()
+        if self.view.substr(end - 1) == u'\n':
+            # For linewise selections put the cursor *before* the line break
+            return sublime.Region(end - 1)
+        else:
+            return sublime.Region(end)
+
+    def run(self, edit, register = '"'):
+        transform_selection_regions(self.view, self.shrink)
+
 # Sequence is used as part of glue_marked_undo_groups: the marked undo groups
 # are rewritten into a single sequence command, that accepts all the previous
 # commands
