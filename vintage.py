@@ -844,11 +844,17 @@ def set_register(view, register, forward):
         text.append(view.substr(s))
         regions.append(s)
 
-    text = "\n".join(text)
+    text = '\n'.join(text)
 
-    if register == '*' or register == '+':
+    use_sys_clipboard = view.settings().get('vintage_use_clipboard', False) is True
+
+    if use_sys_clipboard or register in ('*', '+'):
         sublime.set_clipboard(text)
-    elif register == '%':
+        # If the system's clipboard is used, Vim always propagates the data to
+        # the unnamed register too.
+        register = '"'
+
+    if register == '%':
         pass
     else:
         reg = register.lower()
@@ -874,7 +880,7 @@ def get_register(view, register):
         return None
 
 def has_register(register):
-    if register in ["%", "*", "+"]:
+    if register in ['%', '*', '+']:
         return True
     else:
         return register in g_registers
