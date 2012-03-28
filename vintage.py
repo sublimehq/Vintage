@@ -775,9 +775,9 @@ class ViCopy(sublime_plugin.TextCommand):
         set_register(self.view, '0', forward=True)
         transform_selection_regions(self.view, shrink_to_first_char)
 
-class ViPasteRight(sublime_plugin.TextCommand):
-    # Ensure the register is picked up from g_input_state, and that it'll be
-    # recorded on the undo stack
+class ViPrefixableCommand(sublime_plugin.TextCommand):
+    # Ensure register and repeat are picked up from g_input_state, and that
+    # it'll be recorded on the undo stack
     def run_(self, args):
         if not args:
             args = {}
@@ -785,6 +785,10 @@ class ViPasteRight(sublime_plugin.TextCommand):
         if g_input_state.register:
             args['register'] = g_input_state.register
             g_input_state.register = None
+
+        if g_input_state.prefix_repeat_digits:
+            args['repeat'] = digits_to_number(g_input_state.prefix_repeat_digits)
+            g_input_state.prefix_repeat_digits = []
 
         if 'event' in args:
             del args['event']
@@ -795,41 +799,26 @@ class ViPasteRight(sublime_plugin.TextCommand):
         finally:
             self.view.end_edit(edit)
 
+class ViPasteRight(ViPrefixableCommand):
     def advance(self, pt):
         if self.view.substr(pt) == '\n' or pt >= self.view.size():
             return pt
         else:
             return pt + 1
 
-    def run(self, edit, register = '"'):
+    def run(self, edit, register = '"', repeat = 1):
         visual_mode = self.view.has_non_empty_selection_region()
         if not visual_mode:
             transform_selection(self.view, lambda pt: self.advance(pt))
         self.view.run_command('paste_from_register', {'forward': not visual_mode,
+                                                      'repeat': repeat,
                                                       'register': register})
 
-class ViPasteLeft(sublime_plugin.TextCommand):
-    # Ensure the register is picked up from g_input_state, and that it'll be
-    # recorded on the undo stack
-    def run_(self, args):
-        if not args:
-            args = {}
-
-        if g_input_state.register:
-            args['register'] = g_input_state.register
-            g_input_state.register = None
-
-        if 'event' in args:
-            del args['event']
-
-        edit = self.view.begin_edit(self.name(), args)
-        try:
-            return self.run(edit, **args)
-        finally:
-            self.view.end_edit(edit)
-
-    def run(self, edit, register = '"'):
-        self.view.run_command('paste_from_register', {'forward': False, 'register': register})
+class ViPasteLeft(ViPrefixableCommand):
+    def run(self, edit, register = '"', repeat = 1):
+        self.view.run_command('paste_from_register', {'forward': False,
+                                                      'repeat': repeat,
+                                                      'register': register})
 
 def set_register(view, register, forward):
     delta = 1
@@ -886,11 +875,12 @@ def has_register(register):
         return register in g_registers
 
 class PasteFromRegisterCommand(sublime_plugin.TextCommand):
-    def run(self, edit, register, forward = True):
+    def run(self, edit, register, repeat = 1, forward = True):
         text = get_register(self.view, register)
         if not text:
             sublime.status_message("Undefined register" + register)
             return
+        text = text * int(repeat)
 
         self.view.run_command('vi_delete')
 
@@ -925,7 +915,7 @@ class PasteFromRegisterCommand(sublime_plugin.TextCommand):
         for s in new_sel:
             self.view.sel().add(s)
 
-    def is_enabled(self, register, forward = True):
+    def is_enabled(self, register, repeat = 1, forward = True):
         return has_register(register)
 
 class ReplaceCharacter(sublime_plugin.TextCommand):
