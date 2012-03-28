@@ -1021,11 +1021,27 @@ class ViReplayMacro(sublime_plugin.TextCommand):
         if not character in g_registers:
             return
         m = g_registers[character]
+        global g_input_state
 
-        for d in m:
-            cmd = d['command']
-            args = d['args']
-            self.view.run_command(cmd, args)
+        prefix_repeat_digits, motion_repeat_digits = None, None
+        if len(g_input_state.prefix_repeat_digits) > 0:
+            prefix_repeat_digits = digits_to_number(g_input_state.prefix_repeat_digits)
+
+        if len(g_input_state.motion_repeat_digits) > 0:
+            motion_repeat_digits = digits_to_number(g_input_state.motion_repeat_digits)
+
+        repetitions = 1
+        if prefix_repeat_digits:
+            repetitions *= prefix_repeat_digits
+
+        if motion_repeat_digits:
+            repetitions *= motion_repeat_digits
+
+        for i in range(repetitions):
+            for d in m:
+                cmd = d['command']
+                args = d['args']
+                self.view.run_command(cmd, args)
 
 class ShowAsciiInfo(sublime_plugin.TextCommand):
     def run(self, edit):
