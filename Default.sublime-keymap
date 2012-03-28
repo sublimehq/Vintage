@@ -455,10 +455,10 @@
 		"context": [{"key": "setting.command_mode"}]
 	},
 
-	// Make cw act like ce
+	// Make cw act kinda like ce
 	{ "keys": ["w"], "command": "set_motion", "args": {
-		"motion": "move",
-		"motion_args": {"by": "stops", "word_end": true, "punct_end": true, "empty_line": true, "forward": true, "extend": true },
+		"motion": "vi_extend_to_end_of_whitespace_or_word",
+		"motion_args": {"repeat": 1},
 		"inclusive": true,
 		"clip_to_line": true },
 		"context":
@@ -468,10 +468,10 @@
 		]
 	},
 
-	// Make cW act like cE
+	// Make cW act kinda like cE
 	{ "keys": ["W"], "command": "set_motion", "args": {
-		"motion": "move",
-		"motion_args": {"by": "stops", "word_end": true, "punct_end": true, "empty_line": true, "separators": "", "forward": true, "extend": true },
+		"motion": "vi_extend_to_end_of_whitespace_or_word",
+		"motion_args": {"repeat": 1, "separators": ""},
 		"inclusive": true,
 		"clip_to_line": true },
 		"context":
