@@ -130,6 +130,23 @@
 		"context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
 	},
 
+
+	{ "keys": ["u"], "command": "visual_lower_case",
+		"context":
+		[
+			{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": false, "match_all": false}
+		]
+	},
+
+	{ "keys": ["U"], "command": "visual_upper_case",
+		"context":
+		[
+			{"key": "setting.command_mode"},
+			{"key": "selection_empty", "operator": "equal", "operand": false, "match_all": false}
+		]
+	},
+
 	{ "keys": ["v"], "command": "enter_visual_mode",
 		"context": [{"key": "setting.command_mode"}]
 	},

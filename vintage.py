@@ -740,6 +740,16 @@ class ShrinkSelectionsToEnd(sublime_plugin.TextCommand):
     def run(self, edit, register = '"'):
         transform_selection_regions(self.view, self.shrink)
 
+class VisualUpperCase(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.run_command("upper_case")
+        self.view.run_command("exit_visual_mode")
+
+class VisualLowerCase(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.run_command("lower_case")
+        self.view.run_command("exit_visual_mode")
+
 # Sequence is used as part of glue_marked_undo_groups: the marked undo groups
 # are rewritten into a single sequence command, that accepts all the previous
 # commands
