@@ -25,6 +25,13 @@ Documentation
 ..   _Key Bindings: http://sublimetext.info/docs/en/customization/key_bindings.html
 
 
+Settings
+========
+
+Refer to *Packages/Vintage/Preferences.sublime-settings* to see available
+options.
+
+
 License
 =======
 
