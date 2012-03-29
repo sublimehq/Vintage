@@ -3,7 +3,7 @@
 	// that may override some platform-specific conventions.
 	"vintage_ctrl_keys": false,
 
-	// Propagate copied text to the system clipboard.
+	// Always propagate copied text to the system clipboard.
 	"vintage_use_clipboard": false
 
 	// Whether to enter command mode when opening a view.
