@@ -946,8 +946,12 @@ class ReplaceCharacter(sublime_plugin.TextCommand):
                 # Vim replaces characters with unprintable ones when r<enter> is
                 # pressed from visual mode.  Let's not make a replacement in
                 # that case.
-                if character != "\n":
-                    self.view.replace(edit, s, character * len(s))
+                if character != '\n':
+                    # Process lines contained in the selection individually.
+                    # This way we preserve newline characters.
+                    lines = self.view.split_by_newlines(s)
+                    for line in lines:
+                        self.view.replace(edit, line, character * line.size())
                 new_sel.append(sublime.Region(s.begin()))
 
         self.view.sel().clear()
