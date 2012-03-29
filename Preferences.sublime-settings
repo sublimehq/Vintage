@@ -1,4 +1,7 @@
 {
+	// DON'T CHANGE SETTINGS HERE or they'll be overwritten.
+	// Use Packages/User/Preferences.sublime-settings instead.
+
 	// Enables/disables standard Vi key bindings including the Ctrl modifier
 	// that may override some platform-specific conventions.
 	"vintage_ctrl_keys": false,

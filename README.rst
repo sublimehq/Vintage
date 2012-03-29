@@ -29,7 +29,8 @@ Settings
 ========
 
 Refer to *Packages/Vintage/Preferences.sublime-settings* to see available
-options.
+options. If you want to change any of these settings, use your
+*Packages/User/Preferences.sublime-settings* file.
 
 
 License
