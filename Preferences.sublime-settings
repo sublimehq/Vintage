@@ -7,7 +7,7 @@
 	"vintage_ctrl_keys": false,
 
 	// Always propagate copied text to the system clipboard.
-	"vintage_use_clipboard": false
+	"vintage_use_clipboard": false,
 
 	// Whether to enter command mode when opening a view.
 	"vintage_start_in_command_mode": false
