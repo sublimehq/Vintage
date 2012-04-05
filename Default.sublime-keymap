@@ -685,6 +685,16 @@
 		"context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
 	},
 
+	{ "keys": ["ctrl+u"], "command": "vi_scroll_lines",
+		"args": {"forward": false},
+		"context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
+	},
+
+	{ "keys": ["ctrl+d"], "command": "vi_scroll_lines",
+		"args": {"forward": true},
+		"context": [{"key": "setting.command_mode"}, {"key": "setting.vintage_ctrl_keys"}]
+	},
+
 	{ "keys": ["H"], "command": "set_motion", "args": {
 		"motion": "move_caret_to_screen_top",
 		"motion_args": {"repeat": 1},
