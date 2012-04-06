@@ -1,0 +1,15 @@
+{
+	// DON'T CHANGE SETTINGS HERE or they'll be overwritten.
+	// Use Packages/User/Preferences.sublime-settings instead.
+
+	// Enables/disables standard Vi key bindings including the Ctrl modifier
+	// that may override some platform-specific conventions.
+	"vintage_ctrl_keys": false,
+
+	// Always propagate copied text to the system clipboard.
+	"vintage_use_clipboard": false,
+
+	// Whether to enter command mode when opening a view.
+	"vintage_start_in_command_mode": false
+}
+
