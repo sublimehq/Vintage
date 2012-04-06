@@ -169,7 +169,7 @@ class InputStateTracker(sublime_plugin.EventListener):
             if operator == sublime.OP_NOT_EQUAL:
                 return m != g_input_state.motion_mode
         elif key == "vi_has_repeat_digit":
-            if g_input_state.motion_command:
+            if g_input_state.action_command:
                 v = len(g_input_state.motion_repeat_digits) > 0
             else:
                 v = len(g_input_state.prefix_repeat_digits) > 0
