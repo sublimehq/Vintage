@@ -975,6 +975,37 @@ class ScrollCursorLineToBottom(sublime_plugin.TextCommand):
         self.view.set_viewport_position((self.view.viewport_position()[0], 0.0))
         self.view.show(self.view.sel()[0], False)
 
+class ViScrollLines(ViPrefixableCommand):
+    def run(self, edit, forward = True, repeat = None):
+        if repeat:
+            line_delta = repeat * (1 if forward else -1)
+        else:
+            viewport_height = self.view.viewport_extent()[1]
+            lines_per_page = viewport_height / self.view.line_height()
+            line_delta = int(round(lines_per_page / (2 if forward else -2)))
+        visual_mode = self.view.has_non_empty_selection_region()
+
+        y_deltas = []
+        def transform(pt):
+            row = self.view.rowcol(pt)[0]
+            new_pt = self.view.text_point(row + line_delta, 0)
+            y_deltas.append(self.view.text_to_layout(new_pt)[1]
+                            - self.view.text_to_layout(pt)[1])
+            return new_pt
+
+        transform_selection(self.view, transform, extend = visual_mode)
+
+        self.view.run_command('vi_move_to_first_non_white_space_character',
+                              {'extend': visual_mode})
+
+        # Vim scrolls the viewport as far as it moves the cursor.  With multiple
+        # selections the cursors could have moved different distances, due to
+        # word wrapping.  Move the viewport by the average of those distances.
+        avg_y_delta = sum(y_deltas) / len(y_deltas)
+        vp = self.view.viewport_position()
+        self.view.set_viewport_position((vp[0], vp[1] + avg_y_delta))
+
+
 class ViIndent(sublime_plugin.TextCommand):
     def run(self, edit):
         self.view.run_command('indent')
