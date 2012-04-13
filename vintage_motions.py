@@ -299,19 +299,22 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         # none of the selections performed a text object operation --in that
         # case we should stay in command mode.
         if (not second_quote or
-            line_text.find(character, caret_pos_in_line) == -1):
+            (line_text.find(character, caret_pos_in_line) == -1 and
+             not line_text[caret_pos_in_line] == character)):
                 return r
 
         p = r.b
         # The quoted text is after the caret, so advance there as Vim does.
         if first_quote > caret_pos_in_line:
             p = line_begin + first_quote + 1
+        elif line_text[caret_pos_in_line] == character:
+            p = line_begin + caret_pos_in_line - 1
 
         a = p
-        b = p
         while a >= line_begin and not self.compare_quote(character, a):
             a -= 1
 
+        b = a + 1
         while b < line_end and not self.compare_quote(character, b):
             b += 1
 
