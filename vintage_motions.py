@@ -281,14 +281,38 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
             return False
 
     def expand_to_quote(self, character, r):
+        # We'll limit the search to the current line.
+        line_begin = self.view.line(r).begin()
+        line_end = self.view.line(r).end()
+
+        caret_pos_in_line = r.begin() - line_begin
+        # Is there quoted text?
+        line_text = self.view.substr(self.view.line(r))
+        first_quote = line_text.find(character)
+        second_quote = None
+        if first_quote > -1:
+            second_quote = line_text.find(character, first_quote)
+
+        # If there's no quoted text or it's only before the caret, Vim ignores
+        # the command.
+        # FIXME: Vintage will enter insert mode after this. This is wrong if
+        # none of the selections performed a text object operation --in that
+        # case we should stay in command mode.
+        if (not second_quote or
+            line_text.find(character, caret_pos_in_line) == -1):
+                return r
+
         p = r.b
+        # The quoted text is after the caret, so advance there as Vim does.
+        if first_quote > caret_pos_in_line:
+            p = line_begin + first_quote + 1
+
         a = p
         b = p
-        while a >= 0 and not self.compare_quote(character, a):
+        while a >= line_begin and not self.compare_quote(character, a):
             a -= 1
 
-        sz = self.view.size()
-        while p < sz and not self.compare_quote(character, b):
+        while b < line_end and not self.compare_quote(character, b):
             b += 1
 
         return sublime.Region(a + 1, b)
