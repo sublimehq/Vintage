@@ -300,7 +300,7 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         # case we should stay in command mode.
         if (not second_quote or
             (line_text.find(character, caret_pos_in_line) == -1 and
-             not line_text[caret_pos_in_line] == character)):
+             line_text[caret_pos_in_line] != character)):
                 return r
 
         p = r.b
