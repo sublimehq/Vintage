@@ -306,9 +306,10 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         p = r.b
         # The quoted text is after the caret, so advance there as Vim does.
         if first_quote > caret_pos_in_line:
-            p = line_begin + first_quote + 1
+            p = line_begin + first_quote
         # If the caret is on a quote character, go back so the action succeeds.
-        elif line_text[caret_pos_in_line] == character:
+        elif (line_text[caret_pos_in_line] == character and
+              line_text[caret_pos_in_line+1] != character):
             p = line_begin + caret_pos_in_line - 1
 
         a = p
