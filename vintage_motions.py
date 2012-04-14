@@ -299,8 +299,8 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         # none of the selections performed a text object operation --in that
         # case we should stay in command mode.
         if (not second_quote or
-            (line_text.find(character, caret_pos_in_line) == -1 and
-             line_text[caret_pos_in_line] != character)):
+            (line_text[caret_pos_in_line] != character and
+             line_text.find(character, caret_pos_in_line) == -1)):
                 return r
 
         p = r.b
