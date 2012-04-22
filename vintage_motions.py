@@ -305,7 +305,7 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         # No quoted text --do nothing (Vim).
         # TODO: Vintage will enter insert mode after this, whereas it should
         # stay in command mode as Vim does.
-        if not closing_quote or closing_quote == -1:
+        if closing_quote == -1:
             return r
 
         # Quoted text is before the caret --do nothing (Vim).
