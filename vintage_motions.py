@@ -286,31 +286,40 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         line_end = self.view.line(r).end()
 
         caret_pos_in_line = r.begin() - line_begin
-        # Is there quoted text?
+        # Find out whether there's any quoted text.
         line_text = self.view.substr(self.view.line(r))
         first_quote = line_text.find(character)
-        second_quote = None
-        if first_quote > -1:
-            second_quote = line_text.find(character, first_quote)
+        closing_quote = None
 
-        # If there's no quoted text or it's only before the caret, Vim ignores
-        # the command.
-        # FIXME: Vintage will enter insert mode after this. This is wrong if
-        # none of the selections performed a text object operation --in that
-        # case we should stay in command mode.
-        if (not second_quote or
-            (line_text[caret_pos_in_line] != character and
-             line_text.find(character, caret_pos_in_line) == -1)):
-                return r
+        pivot = max((caret_pos_in_line, first_quote))
+
+        if pivot > -1:
+            # If the caret's on a quote character, don't look for a second
+            # quote past it. This ensures we favor any quoted text before the
+            # over quoted text after it.
+            if (line_text[caret_pos_in_line] == character and
+                caret_pos_in_line != first_quote):
+                    closing_quote = caret_pos_in_line
+            else:
+                closing_quote = line_text.find(character, pivot + 1)
+
+        # No quoted text --do nothing (Vim).
+        # TODO: Vintage will enter insert mode after this, whereas it should
+        # stay in command mode as Vim does.
+        if not closing_quote:
+            return r
+
+        # Quoted text is before the caret --do nothing (Vim).
+        if closing_quote < caret_pos_in_line:
+            return r
 
         p = r.b
-        # The quoted text is after the caret, so advance there as Vim does.
+        if closing_quote == caret_pos_in_line:
+            p -= 1
+
+        # Quoted text is after the caret --advance there (Vim).
         if first_quote > caret_pos_in_line:
             p = line_begin + first_quote
-        # If the caret is on a quote character, go back so the action succeeds.
-        elif (line_text[caret_pos_in_line] == character and
-              line_text[caret_pos_in_line+1] != character):
-            p = line_begin + caret_pos_in_line - 1
 
         a = p
         while a >= line_begin and not self.compare_quote(character, a):
