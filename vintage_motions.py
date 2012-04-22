@@ -291,22 +291,21 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
         first_quote = line_text.find(character)
         closing_quote = None
 
-        pivot = max((caret_pos_in_line, first_quote))
-
-        if pivot > -1:
-            # If the caret's on a quote character, don't look for a second
-            # quote past it. This ensures we favor any quoted text before the
-            # caret over quoted text after it, as Vim does.
-            if (line_text[caret_pos_in_line] == character and
-                caret_pos_in_line == first_quote):
-                    closing_quote = line_text.find(character, pivot + 1)
-            else:
-                closing_quote = line_text.find(character, pivot)
+        # Look for a closing quote after the first quote.
+        if ((line_text[caret_pos_in_line] == character and
+             first_quote == caret_pos_in_line) or
+             (first_quote > caret_pos_in_line)):
+                closing_quote = line_text.find(character, first_quote + 1)
+        # The caret may be on a quote character, so don't look past it.
+        # This ensures we favor quoted text before the caret over quoted
+        # text after it, as Vim does.
+        else:
+            closing_quote = line_text.find(character, caret_pos_in_line)
 
         # No quoted text --do nothing (Vim).
         # TODO: Vintage will enter insert mode after this, whereas it should
         # stay in command mode as Vim does.
-        if not closing_quote:
+        if not closing_quote or closing_quote == -1:
             return r
 
         # Quoted text is before the caret --do nothing (Vim).
