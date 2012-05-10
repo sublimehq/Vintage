@@ -281,14 +281,51 @@ class ViExpandToQuotes(sublime_plugin.TextCommand):
             return False
 
     def expand_to_quote(self, character, r):
+        # We'll limit the search to the current line.
+        line_begin = self.view.line(r).begin()
+        line_end = self.view.line(r).end()
+
+        caret_pos_in_line = r.begin() - line_begin
+        # Find out whether there's any quoted text.
+        line_text = self.view.substr(self.view.line(r))
+        first_quote = line_text.find(character)
+        closing_quote = None
+
+        # Look for a closing quote after the first quote.
+        if ((line_text[caret_pos_in_line] == character and
+             first_quote == caret_pos_in_line) or
+             (first_quote > caret_pos_in_line)):
+                closing_quote = line_text.find(character, first_quote + 1)
+        # The caret may be on a quote character, so don't look past it.
+        # This ensures we favor quoted text before the caret over quoted
+        # text after it, as Vim does.
+        else:
+            closing_quote = line_text.find(character, caret_pos_in_line)
+
+        # No quoted text --do nothing (Vim).
+        # TODO: Vintage will enter insert mode after this, whereas it should
+        # stay in command mode as Vim does.
+        if closing_quote == -1:
+            return r
+
+        # Quoted text is before the caret --do nothing (Vim).
+        if closing_quote < caret_pos_in_line:
+            return r
+
         p = r.b
+        if closing_quote == caret_pos_in_line:
+            p -= 1
+
+        # Quoted text is after the caret --advance there (Vim).
+        if first_quote > caret_pos_in_line:
+            p = line_begin + first_quote
+
         a = p
-        b = p
-        while a >= 0 and not self.compare_quote(character, a):
+        while a >= line_begin and not self.compare_quote(character, a):
             a -= 1
 
-        sz = self.view.size()
-        while p < sz and not self.compare_quote(character, b):
+        b = a + 1
+        while b < line_end and not self.compare_quote(character, b):
             b += 1
 
         return sublime.Region(a + 1, b)
