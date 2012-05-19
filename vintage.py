@@ -8,6 +8,7 @@ MOTION_MODE_LINE = 2
 
 # Registers are used for clipboards and macro storage
 g_registers = {}
+REGISTER_NULL = '_'
 
 # Represents the current input state. The primary commands that interact with
 # this are:
@@ -831,6 +832,11 @@ class ViPasteLeft(ViPrefixableCommand):
                                                       'register': register})
 
 def set_register(view, register, forward):
+    if register == REGISTER_NULL:
+        # This is the null register; do nothing.
+        # More info in Vim: :help "_
+        return
+
     delta = 1
     if not forward:
         delta = -1
@@ -865,6 +871,11 @@ def set_register(view, register, forward):
             g_registers[reg] = text
 
 def get_register(view, register):
+    if register == REGISTER_NULL:
+        # This is the null register; do nothing.
+        # More info in Vim: :help "_
+        return
+
     use_sys_clipboard = view.settings().get('vintage_use_clipboard', False) == True
     register = register.lower()
     if register == '%':
