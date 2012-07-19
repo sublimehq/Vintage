@@ -1025,11 +1025,7 @@ class ViSelectBookmark(sublime_plugin.TextCommand):
     def run(self, edit, character, select_bol=False):
         self.view.run_command('select_all_bookmarks', {'name': "bookmark_" + character})
         if select_bol:
-            sels = list(self.view.sel())
-            self.view.sel().clear()
-            for r in sels:
-                start = self.view.line(r.a).begin()
-                self.view.sel().add(sublime.Region(start, start))
+            self.view.run_command('vi_move_to_first_non_white_space_character')
 
 g_macro_target = None
 
